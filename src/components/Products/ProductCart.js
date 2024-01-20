@@ -1,23 +1,29 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState,useEffect } from 'react'
+import {axiosInstance} from '../../apis/config'
+import { useDispatch } from 'react-redux';
+import {removeFromCartList} from '../../slices/cartSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addToCartList } from '../../slices/cartSlice';
-const ProductCard = ({ productItem }) => {
-  const posterUrl = productItem.thumbnail;
+import { Link } from 'react-router-dom';
+const ProductCart = ({cartItem}) => {
+const [productDetails,setProductDetails]=useState({})
+useEffect(() => {
+  axiosInstance
+    .get(`/products/${cartItem.id}`)
+    .then((res) => {
+      console.log("Response", res.data);
+      setProductDetails((res.data))})
+    .catch((err) => console.log('Error',err));
+}, []);
+const dispatch=useDispatch();
+  const removeFromCartHandler=(productDetails)=>{
+    console.log('Removing from favorites:', cartItem);
 
-  const dispatch =useDispatch();
-  const [isClicked, setIsClicked] = useState(false);
-  // add to favorites movies
-  const addToCartHandler=(productItem)=>{
-    dispatch(addToCartList(productItem))
-    setIsClicked(true);
-
+    
+      dispatch(removeFromCartList(productDetails));
+   
   }
-  
-
+  const posterUrl = cartItem?.thumbnail || '';
   const cardStyle = {
     width: '18rem',
     height: '400px',
@@ -30,7 +36,7 @@ const ProductCard = ({ productItem }) => {
     marginRight: '5px',
   };
 
-  const formattedPrice = Number(productItem.price).toLocaleString('en-US', {
+  const formattedPrice = Number(productDetails.price).toLocaleString('en-US', {
     style: 'currency',
     currency: 'USD',
    
@@ -39,41 +45,45 @@ const ProductCard = ({ productItem }) => {
     <FontAwesomeIcon key={index} icon={faStar} style={starStyle} />
   ));
 
+
   return (
+    <>
     <div className="card" style={cardStyle}>
-      <Link to={`/product-details/${productItem.id}`}>
+      <Link to={`/product-details/${productDetails.id}`}>
         <img
           src={posterUrl}
           className="card-img-top"
-          alt={productItem.title}
+          alt={productDetails.title}
           style={{ height: '200px', objectFit: 'cover' }}
         />
       </Link>
       <div className="card-body">
         
       <div className="d-flex justify-content-between">
-          <h5 className="card-title">{productItem.title}</h5>
+          <h5 className="card-title">{productDetails.title}</h5>
           <h6>{formattedPrice}</h6>
         </div>
         <p className="card-text">
           <span style={{ maxHeight: '100px', overflow: 'hidden', display: 'block' }}>
-            {productItem.brand}
+            {productDetails.brand}
           </span>
           <span style={{ display: 'block', marginBottom: '5px' }}>
             {stars}
           </span>
         </p>
         
-  <button type="button" className="btn btn-outline-success rounded-pill " onClick={()=> addToCartHandler(productItem)}>
+  <button type="button" className="btn btn-outline-success rounded-pill ">
     Add To Cart
   </button>
-  {productItem.stock?<span className="badge  mx-4 px-3  rounded-5" style={{ 
+  {productDetails.stock?<span className="badge  mx-4 px-3  rounded-5" style={{ 
     background: 'green' }}>On stock</span>:<span className="badge  mx-4 px-3  rounded-5"style={{ 
       background: 'red' }}>out stock </span>}
 
       </div>
     </div>
-  );
-};
+    
+    </>
+  )
+}
 
-export default ProductCard;
+export default ProductCart
