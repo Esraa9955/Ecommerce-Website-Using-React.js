@@ -96,6 +96,10 @@ const dispatch=useDispatch();
                
                
     </div>  
+    {productDetails.stock?<span className="badge  mx-4 px-3  rounded-5" style={{ 
+    background: 'green' }}>On stock</span>:<span className="badge  mx-4 px-3  rounded-5"style={{ 
+      background: 'red' }}>out stock </span>}
+
  
       </div>
     </div>

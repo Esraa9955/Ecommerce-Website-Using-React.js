@@ -67,9 +67,13 @@ const ProductCard = ({ productItem }) => {
   <button type="button" className="product-add-button " onClick={()=> addToCartHandler(productItem)}>
     Add To Cart
   </button>
-  
+      {productItem.stock?<span className="badge  mx-4 px-3  rounded-5" style={{ 
+      background: 'green' }}>On stock</span>:<span className="badge  mx-4 px-3  rounded-5"style={{ 
+      background: 'red' }}>out stock </span>}
+
 
       </div>
+
     </div>
   );
 };
