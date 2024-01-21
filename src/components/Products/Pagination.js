@@ -38,10 +38,17 @@ return (
     breakLabel="..."
     nextLabel="next >"
     onPageChange={handlePageClick}
-    pageRangeDisplayed={5}
+    pageRangeDisplayed={2}
     pageCount={pageCount}
     previousLabel="< previous"
     renderOnZeroPageCount={null}
+    //Classes
+    activeClassName="paginationActive"
+    breakClassName="paginationBreak"
+    containerClassName="paginationContainer"
+    nextClassName="paginationNext"
+    previousClassName="paginationPrevious"
+    pageClassName="paginationPage"
     />
   </>
 )

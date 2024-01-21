@@ -14,8 +14,8 @@ const Router = () => {
    
     <Route element={<LayoutWithHeader />} >
     <Route path='/' element={<Products />} />
-    {/* <Route path='/product-details/:id' element={<ProductDetails />} />
-    <Route path='/cart' element={<Cart />}/> */}
+    <Route path='/product-details/:id' element={<ProductDetails />} />
+    <Route path='/cart' element={<Cart />}/>
    </Route>
    
    <Route path='*' element={<NotFoundPage/>}/>
