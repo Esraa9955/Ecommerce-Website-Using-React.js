@@ -34,20 +34,20 @@ return (
     <>
     <ProductList products={currentItems} />
     <ReactPaginate
-    breakLabel="..."
-    nextLabel="next >"
-    onPageChange={handlePageClick}
-    pageRangeDisplayed={2}
-    pageCount={pageCount}
-    previousLabel="< previous"
-    renderOnZeroPageCount={null}
-    //Classes
-    activeClassName="paginationActive"
-    breakClassName="paginationBreak"
-    containerClassName="paginationContainer"
-    nextClassName="paginationNext"
-    previousClassName="paginationPrevious"
-    pageClassName="paginationPage"
+        activeClassName={'item active '}
+        breakClassName={'item break-me '}
+        breakLabel={'...'}
+        containerClassName={'pagination'}
+        disabledClassName={'disabled-page'}
+        marginPagesDisplayed={2}
+        nextClassName={"item next "}
+        nextLabel={<div style={{ fontSize: 18, width: 150 }}>Next</div>}
+        onPageChange={handlePageClick}
+        pageCount={pageCount}
+        pageClassName={'item pagination-page '}
+        pageRangeDisplayed={2}
+        previousClassName={"item previous"}
+        previousLabel={<div style={{ fontSize: 18, width: 150 }}>Previous</div>}
     />
   </>
 )
