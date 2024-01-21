@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react'
 import {axiosInstance} from '../../apis/config'
 import { useDispatch } from 'react-redux';
+import { addToCartList } from '../../slices/cartSlice';
 import {removeFromCartList} from '../../slices/cartSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
@@ -17,10 +18,22 @@ useEffect(() => {
 }, []);
 const dispatch=useDispatch();
   const removeFromCartHandler=(productDetails)=>{
-    console.log('Removing from favorites:', cartItem);
+    console.log('Removing from carts:', cartItem);
 
     
       dispatch(removeFromCartList(productDetails));
+   
+  }
+  // const addToCartHandler=(productDetails)=>{
+  //   dispatch(addToCartList(productDetails))
+  //   setIsClicked(true);
+
+  // }
+  const addToCartHandler=(productDetails)=>{
+    console.log('Removing from cart:', cartItem);
+
+    
+      dispatch(addToCartList(productDetails));
    
   }
   const posterUrl = cartItem?.thumbnail || '';
@@ -48,7 +61,7 @@ const dispatch=useDispatch();
 
   return (
     <>
-    <div className="card" style={cardStyle}>
+    <div className="card-cart" style={cardStyle}>
       <Link to={`/product-details/${productDetails.id}`}>
         <img
           src={posterUrl}
@@ -71,14 +84,19 @@ const dispatch=useDispatch();
             {stars}
           </span>
         </p>
+        <p className="text-sm text-gray-600">
+       <strong>Quantity:</strong> {cartItem.quantity} {/* Display the quantity here */}
+        </p>
         
-  <button type="button" className="btn btn-outline-success rounded-pill ">
-    Add To Cart
-  </button>
-  {productDetails.stock?<span className="badge  mx-4 px-3  rounded-5" style={{ 
-    background: 'green' }}>On stock</span>:<span className="badge  mx-4 px-3  rounded-5"style={{ 
-      background: 'red' }}>out stock </span>}
-
+        <div className='button'>   
+                <button onClick={() => addToCartHandler(productDetails)} className='add-to-cart'> + </button>
+                <span></span>
+                <button onClick={() => removeFromCartHandler(productDetails)} className='remove-fromcart'> - </button>
+                
+               
+               
+    </div>  
+ 
       </div>
     </div>
     

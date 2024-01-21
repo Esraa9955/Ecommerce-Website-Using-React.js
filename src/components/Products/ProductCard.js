@@ -64,12 +64,10 @@ const ProductCard = ({ productItem }) => {
           </span>
         </p>
         
-  <button type="button" className="btn btn-outline-success rounded-pill " onClick={()=> addToCartHandler(productItem)}>
+  <button type="button" className="product-add-button " onClick={()=> addToCartHandler(productItem)}>
     Add To Cart
   </button>
-  {productItem.stock?<span className="badge  mx-4 px-3  rounded-5" style={{ 
-    background: 'green' }}>On stock</span>:<span className="badge  mx-4 px-3  rounded-5"style={{ 
-      background: 'red' }}>out stock </span>}
+  
 
       </div>
     </div>

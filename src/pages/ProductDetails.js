@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import { axiosInstance } from "../apis/config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-
+import { useDispatch } from 'react-redux';
+import { addToCartList } from '../slices/cartSlice';
 const ProductDetails = () => {
   const [productDetails, setProductDetails] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
@@ -25,6 +26,13 @@ const ProductDetails = () => {
     color: "#198754",
     marginRight: "5px",
   };
+  const dispatch =useDispatch();
+  const [isClicked, setIsClicked] = useState(false);
+  const addToCartHandler=(productItem)=>{
+    dispatch(addToCartList(productItem))
+    setIsClicked(true);
+
+  }
 
   const formattedPrice = Number(productDetails.price).toLocaleString("en-US", {
     style: "currency",
@@ -130,12 +138,10 @@ const ProductDetails = () => {
               >
                 Buy Now
               </button>
-              <button
-                type="button"
-                className="btn btn-outline-success rounded-pill px-5"
-              >
-                Add To Cart
-              </button>
+              
+               <button type="button" className="product-add-button " onClick={()=> addToCartHandler(productDetails)}>
+               Add To Cart
+             </button>
             </div>
           </div>
         </div>
