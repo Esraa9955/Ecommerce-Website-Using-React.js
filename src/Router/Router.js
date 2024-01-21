@@ -7,6 +7,7 @@ import ProductDetails from '../pages/ProductDetails';
 import Cart from '../pages/Cart';
 import NotFoundPage from '../pages/NotFoundPage';
 import Pagination from '../components/Products/Pagination';
+import Categorization from "../components/Products/Categorization"
 const Router = () => {
   return (
    <>
@@ -15,6 +16,7 @@ const Router = () => {
    
     <Route element={<LayoutWithHeader />} >
     <Route path='/' element={<Pagination />} />
+    <Route path='/category/:category' element={<Categorization />} />
     <Route path='/product-details/:id' element={<ProductDetails />} />
     <Route path='/cart' element={<Cart />}/> 
    </Route>
