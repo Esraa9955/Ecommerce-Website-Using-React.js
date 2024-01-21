@@ -20,7 +20,7 @@ const ProductCard = ({ productItem }) => {
 
   const cardStyle = {
     width: '18rem',
-    height: '400px',
+    height: '500px',
     //border: 'none', // Remove border
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Add shadow
   };
