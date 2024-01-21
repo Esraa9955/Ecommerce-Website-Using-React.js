@@ -6,19 +6,20 @@ import ReactPaginate from 'react-paginate';
 export default function Pagination(props) {
     
   const [products,setProduct]=useState([]);
-  var itemsPerPage = 4;
   const [itemOffset, setItemOffset] = useState(0);
+  var itemsPerPage = 4;
+  
+  console.log("The full list of data is:", products)
+
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
   const currentItems = products.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(products.length / itemsPerPage);
   
   useEffect(()=>{
-    axiosInstance.get("/products").then((res)=>{console.log('Response',res.data);setProduct((res.data.products));})
+    axiosInstance.get("/products").then((res)=>{console.log('The response recieved from the API was:',res.data);setProduct((res.data.products));})
     .catch((err) => console.log('Error',err));
   },[itemOffset, itemsPerPage]);
-
-  console.log("This should be data", products)
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % products.length;
@@ -27,8 +28,6 @@ export default function Pagination(props) {
     );
     setItemOffset(newOffset);
   };
-
-  console.log("More data:", products)
 
 return (
     <>
